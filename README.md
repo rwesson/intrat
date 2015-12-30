@@ -1,14 +1,10 @@
 Recombination line intensities for hydrogenic ions
 ==================================================
-Recombination line intensities for hydrogenic ions. IV. Total
-recombination coefficients and machine-readable tables for Z=1 to 8
-Storey P.J., Hummer D.G.
-Mon. Not. R. Astron. Soc. 272, 41 (1995)
-
-ADC_Keywords: Atomic physics ;
-Keywords: atomic data - atomic processes - line: formation
+  Recombination line intensities for hydrogenic ions. IV. Total recombination coefficients and machine-readable tables for Z=1 to 8
+  Storey P.J., Hummer D.G. Mon. Not. R. Astron. Soc. 272, 41 (1995)
 
 Description:
+
     Line emissivities, effective recombination coefficients, opacity
     factors, departure coefficients and total recombination coefficients
     are calculated for hydrogenic ions with Z<=8.
