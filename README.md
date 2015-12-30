@@ -1,10 +1,10 @@
-VI/64      Recombination line intensities for hydrogenic ions   (Storey+ 1995)
-================================================================================
+Recombination line intensities for hydrogenic ions
+==================================================
 Recombination line intensities for hydrogenic ions. IV. Total
 recombination coefficients and machine-readable tables for Z=1 to 8
 Storey P.J., Hummer D.G.
-Mon. Not. R. Astron. Soc. 272, 41 (1995)>
-================================================================================
+Mon. Not. R. Astron. Soc. 272, 41 (1995)
+----
 ADC_Keywords: Atomic physics ;
 Keywords: atomic data - atomic processes - line: formation
 
@@ -40,6 +40,4 @@ Description:
     => emissivities are expressed in erg.s^-1^.cm^-3^   (10^-7^W.cm^-3^)
     => effective recombination coefficients are expressed in cm^3^.s^-1^
 
-Courtesy: Peter J. Storey  <pjs@starlink.ucl.ac.uk>
-================================================================================
-(End)                                    Francois Ochsenbein [CDS]   01-Jul-1995
+Courtesy: Peter J. Storey  <pjs@starlink.ucl.ac.uk> 
