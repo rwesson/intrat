@@ -8,7 +8,7 @@ FFLAGS=-ffree-line-length-0 -O3 -fno-backtrace
 	$(FC) $(FFLAGS) $< -c -o $@
 
 intrat: source/intrat.o
-	$(LD) $(LDFLAGS) $(FFLAGS) -o $@ $^
+	$(LD) $(FFLAGS) -o $@ $^
 
 clean:
 	rm -f intrat source/*.o source/*.mod
