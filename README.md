@@ -1,9 +1,9 @@
 Recombination line intensities for hydrogenic ions
 ==================================================
-  Recombination line intensities for hydrogenic ions. IV. Total recombination coefficients and machine-readable tables for Z=1 to 8
-  Storey P.J., Hummer D.G. Mon. Not. R. Astron. Soc. 272, 41 (1995)
+    Recombination line intensities for hydrogenic ions. IV. Total recombination coefficients and machine-readable tables for Z=1 to 8
+    Storey P.J., Hummer D.G. Mon. Not. R. Astron. Soc. 272, 41 (1995)
 
-Description:
+    Description:
 
     Line emissivities, effective recombination coefficients, opacity
     factors, departure coefficients and total recombination coefficients
@@ -36,4 +36,4 @@ Description:
     => emissivities are expressed in erg.s^-1^.cm^-3^   (10^-7^W.cm^-3^)
     => effective recombination coefficients are expressed in cm^3^.s^-1^
 
-Courtesy: Peter J. Storey  <pjs@starlink.ucl.ac.uk> 
+    Courtesy: Peter J. Storey  <pjs@starlink.ucl.ac.uk> 
