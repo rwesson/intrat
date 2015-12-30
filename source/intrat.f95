@@ -103,7 +103,7 @@
 !          open i/o files                                             
 !                                                                     
       name=zion//case
-      open(unit=15,file='e'//name//'.d',status='old')
+      open(unit=15,file='/usr/share/intrat/e'//name//'.d',status='old')
       open(unit=16,file='intrat'//name//'.d',status='replace')
 !                                                                     
 !          output ion, case and range specifications                  
