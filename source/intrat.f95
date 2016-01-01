@@ -125,15 +125,15 @@
 !          read secondary file for this ion and case                  
 !                                                                     
       read(15,*) ntemp,ndens
-      do 101 ia=1,ntemp
-           do 100 ib=1,ndens
+      do ia=1,ntemp
+           do ib=1,ndens
                 read(15,25) dens(ib),temp(ia),ncut
    25           format(1x,e10.3,5x,e10.3,13x,i2)
                 ne=ncut*(ncut-1)/2
                 read(15,30) (e(j,ia,ib),j=1,ne)
    30           format((8e10.3))
-  100      continue
-  101 continue
+           enddo
+      enddo
       read(15,*) ((a(i,j),i=1,ndens),j=1,ntemp)
       write(*,31)
    31 format('  data input complete'//)
@@ -148,15 +148,15 @@
 !                                                                     
 !          interpolation variables                                    
 !                                                                     
-      do 102 i=1,ndens
+      do i=1,ndens
            x(i)=log10(dens(i))
-  102 continue
-      do 103  i=1,ntemp
+      enddo
+      do  i=1,ntemp
            y(i)=sqrt(temp(i))
                                ! f is emissivity smoothing function in t
            f(1,i)=1.0
            f(2,i)=y(i)
-  103 continue
+      enddo
 !                                                                     
 !          limit output to desired minimum density plus six higher value
 !                                                                     
@@ -164,11 +164,11 @@
    39 format(/'  please type minimum density to be considered'/)
       read(*,*,err=38) dmin
       m0=1
-      do 104 i=1,ndens
+      do i=1,ndens
            if(dens(i).le.dmin) then
                 m0=i
            endif
-  104 continue
+      enddo
       m1=m0+6
       if(m1.gt.ndens) then
            m1=ndens
@@ -184,11 +184,7 @@
 !     load alpha-tot table in table array                             
 !                                                                     
    42 if(ques.eq.'a'.or.ques.eq.'A') then
-           do 106 it=1,ntemp
-                do 105 id=1,ndens
-                     r(it,id)=a(id,it)
-  105           continue
-  106      continue
+           r=transpose(a)
            ns=1
            goto 60
       endif
@@ -235,15 +231,11 @@
 !                                                                     
 !          calculate desired intensity ratio (or emissivity if nus=nls=0
 !                                                                     
-      do 108 it=1,ntemp
-           do 107 id=1,ndens
-                if(ns.eq.1) then
-                     r(it,id)=e(k,it,id)/e(ks,it,id)
-                else
-                     r(it,id)=e(k,it,id)
-                endif
-  107      continue
-  108 continue
+      if (ns.eq.1) then
+           r(:,:) = e(k,:,:)/e(ks,:,:)
+      else
+           r(:,:) = e(k,:,:)
+      endif
 !                                                                     
 !          output table of line intensity (ratios) to screen and file 
 !                                                                     
@@ -253,11 +245,11 @@
       write(*,71)
       write(16,71)
    71 format(' temp      ')
-      do 109 i=1,ntemp
+      do i=1,ntemp
            write(*,72) temp(i),(r(i,j),j=m0,m1)
            write(16,72) temp(i),(r(i,j),j=m0,m1)
    72      format(1pe9.2,2x,7e9.2)
-  109 continue
+      enddo
 !                                                                     
 !          interpolate in r-table                                     
 !                                                                     
@@ -324,7 +316,7 @@
 !                                                                     
 !          interpolate to orders 2,3,4,5 in both directions           
 !                                                                     
-           do 116 int=1,max
+           do int=1,max
                                          ! interpolation order        
                 nint=ni(int)
                 nint1=nint-1
@@ -366,29 +358,29 @@
 !                                                                     
 !          nint**2-point interpolation                                
 !                                                                     
-                do 111 k=1,nint
+                do k=1,nint
                      i=is+k-1
                      cx(k)=1.0
-                          do 110 kp=1,nint
+                          do kp=1,nint
                                if(kp.ne.k) then
                                     ip=is+kp-1
                                     cx(k)=cx(k)*(xp-x(ip))/(x(i)-x(ip))
                                endif
-  110                     continue
-  111           continue
-                do 113 k=1,nint
+                          enddo
+                enddo
+                do k=1,nint
                      j=js+k-1
                      cy(k)=1.0
-                          do 112 kp=1,nint
+                          do kp=1,nint
                                if(kp.ne.k) then
                                     jp=js+kp-1
                                     cy(k)=cy(k)*(yp-y(jp))/(y(j)-y(jp))
                                endif
-  112                     continue
-  113           continue
+                          enddo
+                enddo
                 rint=0.0
-                do 115 kx=1,nint
-                     do 114 ky=1,nint
+                do kx=1,nint
+                     do ky=1,nint
                           if((js+ky-1).gt.ntemp.or.(is+kx-1).gt.ndens)  &
      &                         then                                   
                                stop 'final loop error'
@@ -399,8 +391,8 @@
                                rrr=log(rrr)
                           endif
                           rint=rint+cx(kx)*cy(ky)*rrr
-  114                continue
-  115           continue
+                     enddo
+                enddo
                 ri(int)=rint
                 if(nt.ne.0) then
                      ri(int)=exp(ri(int))
@@ -410,7 +402,7 @@
                      ri(int)=ri(int)/yp
                 endif
                                                  ! end nint-loop      
-  116      continue
+           enddo
            write(*,94) xt,xd,ques,(ri(i),i=1,max)
            write(16,94) xt,xd,ques,(ri(i),i=1,max)
    94      format(/' Te=',1pe10.3,' Ne=',e10.3,'  r(',a1,')=',4e9.2)
