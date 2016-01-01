@@ -160,8 +160,7 @@
 !                                                                     
 !          limit output to desired minimum density plus six higher value
 !                                                                     
-   38 write(*,39)
-   39 format(/'  please type minimum density to be considered'/)
+  38  print *,"  please type minimum density to be considered"
       read(*,*,err=38) dmin
       m0=1
       do i=1,ndens
@@ -176,10 +175,8 @@
 !                                                                     
 !          direct access to alpha-tot                                 
 !                                                                     
-      write(*,40)
-   40 format(/' start with line-ratios/emiss. (l) or alphas (a)?')
-      read(*,41) ques
-   41 format(a1)
+      print *, " start with line-ratios/emiss. (l) or alphas (a)?"
+      read(*,"(A1)") ques
 !                                                                     
 !     load alpha-tot table in table array                             
 !                                                                     
@@ -191,8 +188,7 @@
 !                                                                     
 !          choose transition of interest (and standard transition if wan
 !                                                                     
-   45 write(*,50)
-   50 format(/' n_upper, n_lower, n_upper_ref, n_lower_ref'/)
+   45 print *," n_upper, n_lower, n_upper_ref, n_lower_ref"
       read(*,*,err=45) nu,nl,nus,nls
                                          ! change minimum density     
       if(nu.lt.0) then
@@ -253,11 +249,9 @@
 !                                                                     
 !          interpolate in r-table                                     
 !                                                                     
-   78 write(*,80)
-   80 format(/' interpolate(i), interpolate log(l), new n(n),           &
-     &alpha-tot(a), new min density(d)'/' exit(e)?')                  
-      read(*,82,err=78) ques
-   82 format(a1)
+   78 print *," interpolate(i), interpolate log(l), new n(n), alpha-tot(a), new min density(d)"
+      print *," exit(e)?"
+      read(*,"(A1)",err=78) ques
       if(ques.eq.'e'.or.ques.eq.'E') then
            stop
       endif
@@ -276,12 +270,10 @@
            else
                 nt=1
            endif
-   83      write(*,84)
-   84      format(' please type desired temperature and density')
+   83      print *," please type desired temperature and density"
            read(*,*,err=83) xt,xd
            if(xt.lt.temp(1).or.xt.gt.temp(ntemp).or.xd.lt.dens(1).or.xd.gt.dens(ndens)) then                                 
-                write(*,85)
-   85           format(' requested temp/dens not in table')
+                print *," requested temp/dens not in table"
                 goto 78
            endif
                                    ! interpolate in log(dens)         
