@@ -77,15 +77,23 @@
 !          P.J.Storey and D.G.Hummer, January 1993 ; see MNRAS,xxxxx,199
 !                                                                     
 !***********************************************************************
-                                                                      
-      implicit real*4(a-h,o-z)
+
+      implicit none
+      integer, parameter :: dp = kind(1.d0)
       character*1 zion,case,ques
       character*2 name
-      dimension dens(15),temp(15),e(300,15,15),r(15,15),x(15),y(15),    &
-     &          ni(5),cx(5),cy(5),ri(5),f(2,15),a(15,15)              
+      real(kind=dp), dimension(15) :: dens,temp,x,y
+      real(kind=dp), dimension(5) :: cx,cy,ri
+      real(kind=dp), dimension(15,15) :: r,a
+      real(kind=dp), dimension(300,15,15) :: e
+      real(kind=dp), dimension(2,15) :: f
+      real(kind=dp) :: dmin, rint, rrr, xd, xp, xt, yp
+      integer :: i, i0, ia, ib, id, int, ip, is, it, j, j0, jp, js, k, kp, ks, kx, ky, m0, m1, max, ncase, ncut, ndens, ne, nint, nint1, nl, nls, nof, ns, nt, ntemp, nu, nus
+      integer, dimension(5) :: ni
                                      ! interpolation parameters       
-      data max/4/ni/2,3,4,5,6/
-!                                                                     
+      max=4
+      ni=(/2,3,4,5,6/)
+
 !          identify ion and case                                      
 !                                                                     
     1 write(*,5)
@@ -141,7 +149,7 @@
 !          interpolation variables                                    
 !                                                                     
       do 102 i=1,ndens
-           x(i)=alog10(dens(i))
+           x(i)=log10(dens(i))
   102 continue
       do 103  i=1,ntemp
            y(i)=sqrt(temp(i))
@@ -285,7 +293,7 @@
                 goto 78
            endif
                                    ! interpolate in log(dens)         
-           xp=alog10(xd)
+           xp=log10(xd)
                                    ! interpolate in temp**0.5         
            yp=sqrt(xt)
 !                                                                     
