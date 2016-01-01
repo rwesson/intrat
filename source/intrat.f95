@@ -94,7 +94,7 @@
       read(*,10) zion,case
    10 format(a1,1x,a1)
       if(case.eq.'a'.or.case.eq.'b') case=char(ichar(case)-32)
-      if(case.eq.'a'.or.case.eq.'A') then
+      if(case.eq.'A') then
            ncase=0
       else
            ncase=1
