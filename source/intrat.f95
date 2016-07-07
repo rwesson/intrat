@@ -111,7 +111,7 @@
 !          open i/o files
 !
       name=zion//case
-      open(unit=15,file='/usr/share/intrat/e'//name//'.d',status='old')
+      open(unit=15,file=PREFIX//'/share/intrat/e'//name//'.d',status='old')
       open(unit=16,file='intrat'//name//'.d',status='replace')
 !
 !          output ion, case and range specifications
@@ -183,58 +183,58 @@
    42 if(ques.eq.'a'.or.ques.eq.'A') then
            r=transpose(a)
            ns=1
-           goto 60
-      endif
+      else
 !
 !          choose transition of interest (and standard transition if wan
 !
-   45 print *," n_upper, n_lower, n_upper_ref, n_lower_ref"
-      read(*,*,err=45) nu,nl,nus,nls
+   45       print *," n_upper, n_lower, n_upper_ref, n_lower_ref"
+            read(*,*,err=45) nu,nl,nus,nls
                                          ! change minimum density
-      if(nu.lt.0) then
-           go to 38
-      endif
+            if(nu.lt.0) then
+                 go to 38
+            endif
                                          ! end program
-      if(nu.eq.0.or.nl.eq.0) then
-           stop
-      endif
+            if(nu.eq.0.or.nl.eq.0) then
+                 stop
+            endif
                                          ! check order of levels
-      if(nu.le.nl.or.nu.gt.ncut) then
-           goto 45
-      endif
+            if(nu.le.nl.or.nu.gt.ncut) then
+                 goto 45
+            endif
                                          ! check order of levels
-      if(nus.lt.nls.or.nus.gt.ncut) then
-           goto 45
-      endif
-      if((nu.gt.2.and.nl.eq.1.and.ncase.eq.1).or.(nus.gt.2.and.nls.eq.1.&
-     &and.ncase.eq.1)) then
+            if(nus.lt.nls.or.nus.gt.ncut) then
+                 goto 45
+            endif
+            if((nu.gt.2.and.nl.eq.1.and.ncase.eq.1).or.(nus.gt.2.and.nls.eq.1.and.ncase.eq.1)) then
                              ! Ly beta,..
-           go to 45
-      endif
-      write(16,52) nu,nl,nus,nls
-   52 format(//' nu=',i3,' nl=',i3,' nus=',i3,' nls=',i3/)
+                 go to 45
+            endif
+            write(16,52) nu,nl,nus,nls
+   52       format(//' nu=',i3,' nl=',i3,' nus=',i3,' nls=',i3/)
 !
 !          set keys to locate transitions of interest
 !
-      if((nus+nls).eq.0) then
-           ns=2
-           ks=999
-      else
-           ns=1
-           ks=(((ncut-nus)*(ncut+nus-1))/2)+nls
-      endif
-      k=(((ncut-nu)*(ncut+nu-1))/2)+nl
+            if((nus+nls).eq.0) then
+                 ns=2
+                 ks=999
+            else
+                 ns=1
+                 ks=(((ncut-nus)*(ncut+nus-1))/2)+nls
+            endif
+            k=(((ncut-nu)*(ncut+nu-1))/2)+nl
 !
 !          calculate desired intensity ratio (or emissivity if nus=nls=0
 !
-      if (ns.eq.1) then
-           r(:,:) = e(k,:,:)/e(ks,:,:)
-      else
-           r(:,:) = e(k,:,:)
-      endif
+            if (ns.eq.1) then
+                 r(:,:) = e(k,:,:)/e(ks,:,:)
+            else
+                 r(:,:) = e(k,:,:)
+            endif
 !
 !          output table of line intensity (ratios) to screen and file
 !
+      endif
+
    60 write(*,70) (dens(i),i=m0,m1)
       write(16,70) (dens(i),i=m0,m1)
    70 format(' dens:     ',1p7e9.2)
