@@ -112,7 +112,7 @@
 !
       name=zion//case
       open(unit=15,file=PREFIX//'/share/intrat/e'//name//'.d',status='old')
-      open(unit=16,file='intrat'//name//'.d',status='replace')
+      open(unit=16,file='intrat_output_'//name//'.d',status='replace')
 !
 !          output ion, case and range specifications
 !
