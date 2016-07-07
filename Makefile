@@ -1,8 +1,9 @@
 FC=gfortran
 LD=gfortran
-FFLAGS=-ffree-line-length-0 -O3 -fno-backtrace
+PREFIX=/usr
+FFLAGS+=-cpp -DPREFIX=\"${PREFIX}\" -ffree-line-length-0 -fno-backtrace
 
-.PHONY: clean install uninstall
+.PHONY: clean install uninstall new
 
 %.o: %.f95
 	$(FC) $(FFLAGS) $< -c -o $@
@@ -13,12 +14,14 @@ intrat: source/intrat.o
 clean:
 	rm -f intrat source/*.o source/*.mod
 
+new: clean intrat
+
 install:
-	test -e ${DESTDIR}/usr/share/intrat || mkdir -p ${DESTDIR}/usr/share/intrat
-	test -e ${DESTDIR}/usr/bin || mkdir -p ${DESTDIR}/usr/bin
-	install -m 644 data/*.* ${DESTDIR}/usr/share/intrat
-	install intrat ${DESTDIR}/usr/bin
+	test -e ${DESTDIR}${PREFIX}/share/intrat || mkdir -p ${DESTDIR}${PREFIX}/share/intrat
+	test -e ${DESTDIR}${PREFIX}/bin || mkdir -p ${DESTDIR}${PREFIX}/bin
+	install -m 644 data/*.* ${DESTDIR}${PREFIX}/share/intrat
+	install intrat ${DESTDIR}${PREFIX}/bin
 
 uninstall:
-	rm -rf ${DESTDIR}/usr/share/intrat
-	rm -f ${DESTDIR}/usr/bin/intrat 
+	rm -rf ${DESTDIR}${PREFIX}/share/intrat
+	rm -f ${DESTDIR}${PREFIX}/bin/intrat
