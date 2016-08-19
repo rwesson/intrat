@@ -9,7 +9,7 @@ FFLAGS+=-cpp -DPREFIX=\"${PREFIX}\" -ffree-line-length-0 -fno-backtrace
 	$(FC) $(FFLAGS) $< -c -o $@
 
 intrat: source/intrat.o
-	$(LD) $(FFLAGS) -o $@ $^
+	$(LD) $(FFLAGS) $(LDFLAGS) -o $@ $^
 
 clean:
 	rm -f intrat source/*.o source/*.mod
