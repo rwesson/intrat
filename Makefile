@@ -5,7 +5,7 @@ FFLAGS+=-cpp -DPREFIX=\"${PREFIX}\" -ffree-line-length-0 -fno-backtrace
 
 .PHONY: clean install uninstall new
 
-%.o: %.f95
+%.o: %.f90
 	$(FC) $(FFLAGS) $< -c -o $@
 
 intrat: source/intrat.o
