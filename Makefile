@@ -1,6 +1,13 @@
 FC=gfortran
 LD=gfortran
-PREFIX=/usr
+
+OS := $(shell uname)
+ifeq ($(OS),Darwin)
+  PREFIX=/usr/local
+else
+  PREFIX=/usr
+endif
+
 FFLAGS+=-cpp -DPREFIX=\"${PREFIX}\" -ffree-line-length-0 -fno-backtrace
 
 .PHONY: clean install uninstall new
